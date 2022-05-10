@@ -13,7 +13,7 @@ var calculator = {
     return x / y;
   },
   square: function (x) {
-    return Math.pow(x * 2);
+    return Math.pow(x, 2);
   },
   sumAll: function (numbers) {
     var sum = 0;
