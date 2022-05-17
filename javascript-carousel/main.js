@@ -21,6 +21,7 @@ $nextImg.addEventListener('click', function (event) {
     imgPosition++;
   }
   updateImg();
+  runTimer();
 });
 
 $prevImg.addEventListener('click', function (event) {
@@ -30,62 +31,21 @@ $prevImg.addEventListener('click', function (event) {
     imgPosition--;
   }
   updateImg();
+  runTimer();
 });
 
-var $dot1 = document.querySelector('.dot-1');
-var $dot2 = document.querySelector('.dot-2');
-var $dot3 = document.querySelector('.dot-3');
-var $dot4 = document.querySelector('.dot-4');
-var $dot5 = document.querySelector('.dot-5');
+var $dots = document.querySelectorAll('.dot-box div');
+var timer = null;
 
-$dot1.addEventListener('click', function (event) {
-  for (var i = 0; $imgList.length - 1; i++) {
-    $imgList[0].className = 'img-sizing active';
-    $imgList[i].className = 'img-sizing hidden';
-    $progessCircle[i].className = 'dot far fa-circle';
-    $progessCircle[0].className = 'dot fas fa-circle';
-  }
-  imgPosition = 0;
-});
+$dots.forEach(dot => {
+  dot.addEventListener('click', function (event) {
+    var className = dot.className;
+    var position = className.split('dot-')[1];
+    imgPosition = position - 1;
 
-$dot2.addEventListener('click', function (event) {
-  for (var i = 0; $imgList.length - 1; i++) {
-    $imgList[1].className = 'active';
-    $imgList[i].className = 'hidden';
-    $progessCircle[i].className = 'far fa-circle';
-    $progessCircle[1].className = 'fas fa-circle';
-  }
-  imgPosition += imgPosition + 1;
-});
-
-$dot3.addEventListener('click', function (event) {
-  for (var i = 0; $imgList.length - 1; i++) {
-    $imgList[2].className = 'active';
-    $imgList[i].className = 'hidden';
-    $progessCircle[i].className = 'far fa-circle';
-    $progessCircle[2].className = 'fas fa-circle';
-  }
-  imgPosition += imgPosition + 2;
-});
-
-$dot4.addEventListener('click', function (event) {
-  for (var i = 0; $imgList.length - 1; i++) {
-    $imgList[3].className = 'active';
-    $imgList[i].className = 'hidden';
-    $progessCircle[i].className = 'far fa-circle';
-    $progessCircle[3].className = 'fas fa-circle';
-  }
-  imgPosition += imgPosition + 3;
-});
-
-$dot5.addEventListener('click', function (event) {
-  for (var i = 0; $imgList.length - 1; i++) {
-    $imgList[4].className = 'active';
-    $imgList[i].className = 'hidden';
-    $progessCircle[i].className = 'far fa-circle';
-    $progessCircle[4].className = 'fas fa-circle';
-  }
-  imgPosition += imgPosition + 4;
+    updateImg();
+    runTimer();
+  });
 });
 
 function carouselImg() {
@@ -97,4 +57,11 @@ function carouselImg() {
   updateImg();
 }
 
-setInterval(function () { carouselImg(); }, 1000);
+function runTimer() {
+  if (timer) {
+    clearInterval(timer);
+  }
+  timer = setInterval(function () { carouselImg(); }, 1000);
+}
+
+runTimer();
